@@ -1,1 +1,154 @@
-
+{
+  "id": 3,
+  "title": "Quiz 3",
+  "topic": "CNNs, Pooling, Stride & Feature Engineering – Weeks 3 & 4",
+  "duration": 30,
+  "questions": [
+    {
+      "id": 1,
+      "type": "truefalse",
+      "text": "Activation functions are used in a neural network to compute the net input to the neuron and they add non-linearity to the network.",
+      "answer": false,
+      "feedback": "Activation functions add non-linearity, but they do NOT compute the net input — that is done by the weighted sum. The activation function is applied after the net input is computed."
+    },
+    {
+      "id": 2,
+      "type": "truefalse",
+      "text": "Average-pooling reduces computations and is robust to background noise.",
+      "answer": false,
+      "feedback": "Average-pooling reduces computations, but it is Max-pooling that is robust to background noise — not average-pooling."
+    },
+    {
+      "id": 3,
+      "type": "truefalse",
+      "text": "CNNs adopt automatic and hierarchical feature engineering, in which kernels are pre-computed inside the network.",
+      "answer": false,
+      "feedback": "CNNs do adopt automatic and hierarchical feature engineering, but kernels are LEARNED (not pre-computed) during training."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "text": "Why does a Convolutional Neural Network (CNN) beat SIFT + traditional classifiers (SVM)?",
+      "options": [
+        "It adapts to data, learns mid-level spatial features, scales with more data.",
+        "It augments data, learns mid-level spatial features, pre-computes kernel coefficients.",
+        "It adapts to data, extracts spatial features, underfits with more data.",
+        "None of the above"
+      ],
+      "answer": "It adapts to data, learns mid-level spatial features, scales with more data.",
+      "feedback": "CNNs adapt to data, learn mid-level spatial features automatically, and performance scales with more data — unlike handcrafted methods."
+    },
+    {
+      "id": 5,
+      "type": "truefalse",
+      "text": "In Max-pooling, as long as the feature activates anywhere in the input image, the output remains high.",
+      "answer": false,
+      "feedback": "Max-pooling keeps the highest activation within its window — not anywhere in the entire image. It provides local, not global, translation invariance."
+    },
+    {
+      "id": 6,
+      "type": "truefalse",
+      "text": "The Max-pooling goal is to down-sample the learned feature maps to reduce computations and it always ignores the exact position within the window.",
+      "answer": true,
+      "feedback": "Max-pooling down-samples feature maps to reduce computations and discards the exact position of the maximum within the pooling window."
+    },
+    {
+      "id": 7,
+      "type": "mcq",
+      "text": "In a Gaussian filter, pixels closer to the center have ________ weight, and weights ________ towards borders.",
+      "options": [
+        "high – decrease",
+        "None of the answers",
+        "less – decrease",
+        "high – increase",
+        "less – increase"
+      ],
+      "answer": "high – decrease",
+      "feedback": "Gaussian filters assign higher weights to pixels near the center and weights decrease towards the borders."
+    },
+    {
+      "id": 8,
+      "type": "mcq",
+      "text": "Extreme outliers applied to an image like random 'salt-and-pepper noise' are ________ because the median is ________ to outliers.",
+      "options": [
+        "Not ignored, robust",
+        "Completely ignored, robust",
+        "Not ignored, not robust",
+        "Completely ignored, not robust",
+        "None of the answers"
+      ],
+      "answer": "Completely ignored, robust",
+      "feedback": "Salt-and-pepper noise outliers are completely ignored by the median filter because the median is robust to extreme outliers."
+    },
+    {
+      "id": 9,
+      "type": "mcq",
+      "text": "Noise is unwanted random variations in an image. Common reasons include:",
+      "options": [
+        "Quantization and Sensors",
+        "Spatial and Graylevel resolution",
+        "All of the answers",
+        "None of the answers",
+        "Sampling and quantization"
+      ],
+      "answer": "Quantization and Sensors",
+      "feedback": "The lecture identifies quantization errors and sensor imperfections as the main sources of noise in images."
+    },
+    {
+      "id": 10,
+      "type": "truefalse",
+      "text": "In Handcrafted Features like SIFT, edge filters, and interest points, the feature extractor does vary for different tasks (detection and matching).",
+      "answer": false,
+      "feedback": "A key property of handcrafted features like SIFT is that the same feature extractor is used across tasks — it does NOT vary per task."
+    },
+    {
+      "id": 11,
+      "type": "truefalse",
+      "text": "Chaining two edge detectors works as a corner detector; which means hierarchical feature building, where the network can detect patterns of patterns.",
+      "answer": false,
+      "feedback": "While chaining detectors is related to hierarchical feature building, a corner detector is NOT simply two chained edge detectors in the way described."
+    },
+    {
+      "id": 12,
+      "type": "truefalse",
+      "text": "The more the box-kernel size, both the more the computations and the more the blurring in output image.",
+      "answer": true,
+      "feedback": "Larger box kernels require more computations and produce stronger blurring in the output image."
+    },
+    {
+      "id": 13,
+      "type": "mcq",
+      "text": "Stride controls ________, smaller stride ________, and larger stride ________.",
+      "options": [
+        "None of the answers",
+        "The Kernel Size – preserves detail – compresses faster",
+        "How many Kernels – preserves detail – compresses faster",
+        "How much the kernel jumps – compresses faster – preserves detail",
+        "How much the kernel jumps – preserves detail – compresses faster"
+      ],
+      "answer": "How much the kernel jumps – preserves detail – compresses faster",
+      "feedback": "Stride controls how much the kernel moves at each step. Smaller stride preserves more detail; larger stride compresses the output faster."
+    },
+    {
+      "id": 14,
+      "type": "truefalse",
+      "text": "In Handcrafted Features like SIFT, edge filters, and interest points, the key property is that it is not specific and is adaptive to data.",
+      "answer": false,
+      "feedback": "Handcrafted features like SIFT are task-specific and NOT adaptive to data — that is a property of learned features in CNNs."
+    },
+    {
+      "id": 15,
+      "type": "mcq",
+      "text": "The notation g[x,y] = Σ Σ w[s,t] f[x−s, y−t] represents which of the following in the context of computer vision?",
+      "options": [
+        "Median Filter",
+        "Zero Padding",
+        "None of the answers",
+        "Quantization",
+        "Convolution"
+      ],
+      "answer": "Convolution",
+      "feedback": "This double-summation notation — sliding a weight kernel w over image f — is the standard mathematical definition of convolution."
+    }
+  ]
+}
