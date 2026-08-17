@@ -1,1 +1,329 @@
-
+{
+  "id": 1,
+  "title": "Quiz 1",
+  "topic": "DIP Fundamentals – Weeks 1 & 2",
+  "duration": 30,
+  "questions": [
+    {
+      "id": 1,
+      "type": "matching",
+      "text": "Match each image processing operation type with its definition.",
+      "pairs": [
+        { "term": "Type 0", "definition": "Output at a pixel depends only on the input intensity at that point" },
+        { "term": "Type 1", "definition": "Output at a pixel depends on neighboring pixel intensities as well" },
+        { "term": "Type 2", "definition": "Output depends on geometric transformation such as rotation or scaling" }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "mcq",
+      "text": "Which two imaging sensor types are explicitly mentioned in the lecture notes?",
+      "options": [
+        "Sobel and Prewitt",
+        "RGB and HSV",
+        "CCD and CMOS",
+        "CPU and RAM"
+      ],
+      "answer": "CCD and CMOS",
+      "feedback": "The lecture mentions Charged Coupled Device (CCD) and Complementary Metal Oxide Semiconductor (CMOS)."
+    },
+    {
+      "id": 3,
+      "type": "truefalse",
+      "text": "A histogram tells exactly where each gray level is located in the image.",
+      "answer": false,
+      "feedback": "A histogram does not preserve where pixels are located."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "text": "According to the lecture, why does classical DIP still matter for modern AI?",
+      "options": [
+        "AI always ignores preprocessing",
+        "DIP prevents all model errors automatically",
+        "Only text data matters in AI",
+        "AI models follow Garbage In, Garbage Out; poor image input can produce poor outputs"
+      ],
+      "answer": "AI models follow Garbage In, Garbage Out; poor image input can produce poor outputs",
+      "feedback": "The lecture emphasizes that poor input data leads to poor model performance."
+    },
+    {
+      "id": 5,
+      "type": "truefalse",
+      "text": "The lecture notes connect GPUs with improved processing time and modern deep learning.",
+      "answer": true,
+      "feedback": "GPUs are presented as originally for graphics but now driving deep learning due to parallelism."
+    },
+    {
+      "id": 6,
+      "type": "matching",
+      "text": "Match each area with its description from the lecture notes.",
+      "pairs": [
+        { "term": "Pattern Recognition", "definition": "Processes an image and transforms it into an abstract description" },
+        { "term": "Computer Graphics", "definition": "Generation of image from non-pictorial information" },
+        { "term": "Image Processing", "definition": "Both input and output are images" }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "mcq",
+      "text": "Type 1 operations depend on:",
+      "options": [
+        "only the image file name",
+        "only sensor speed",
+        "neighboring pixels as well as the current pixel",
+        "only the color model name"
+      ],
+      "answer": "neighboring pixels as well as the current pixel",
+      "feedback": "The lecture says Type 1 operations use neighboring pixel intensities; filtering and edge detection are examples."
+    },
+    {
+      "id": 8,
+      "type": "mcq",
+      "text": "Object segmentation is the process of:",
+      "options": [
+        "subdividing an image into meaningful disjoint regions",
+        "making a camera sensor hotter",
+        "changing the course title",
+        "removing all color models"
+      ],
+      "answer": "subdividing an image into meaningful disjoint regions",
+      "feedback": "This matches the lecture definition of segmentation."
+    },
+    {
+      "id": 9,
+      "type": "truefalse",
+      "text": "HSV helps separate true color from illumination information.",
+      "answer": true,
+      "feedback": "The lecture explains Hue, Saturation, and Value separate color information from illumination."
+    },
+    {
+      "id": 10,
+      "type": "mcq",
+      "text": "Which is an example of a Type 2 operation from the lecture?",
+      "options": [
+        "Rotation",
+        "Light sensing",
+        "Pixel classification only",
+        "Histogram counting"
+      ],
+      "answer": "Rotation",
+      "feedback": "Type 2 operations include geometric transformations such as rotation, translation, scaling, and reflection."
+    },
+    {
+      "id": 11,
+      "type": "mcq",
+      "text": "The lecture notes say digital processing is slower than analog processing, but:",
+      "options": [
+        "it cannot use parallel processing",
+        "it cannot process images",
+        "manipulation is easy",
+        "it avoids computers"
+      ],
+      "answer": "manipulation is easy",
+      "feedback": "The lecture states digital processing is slower, but manipulation is easy."
+    },
+    {
+      "id": 12,
+      "type": "mcq",
+      "text": "Why do sensor differences matter for AI, according to the lecture?",
+      "options": [
+        "AI ignores image noise completely",
+        "Models may fail if deployment images differ from training images",
+        "Only analog images can train AI",
+        "Sensors have no impact on AI models"
+      ],
+      "answer": "Models may fail if deployment images differ from training images",
+      "feedback": "The lecture explains that models can struggle if training and deployment image distributions differ."
+    },
+    {
+      "id": 13,
+      "type": "fill",
+      "text": "CCD stands for Charged Coupled ___.",
+      "answer": "Device",
+      "feedback": "CCD means Charged Coupled Device."
+    },
+    {
+      "id": 14,
+      "type": "truefalse",
+      "text": "Image acquisition bridges the physical world and the digital realm.",
+      "answer": true,
+      "feedback": "This sentence appears directly in the lecture notes."
+    },
+    {
+      "id": 15,
+      "type": "mcq",
+      "text": "One advantage of analog processing mentioned in the lecture is that it is:",
+      "options": [
+        "used only for segmentation",
+        "very fast",
+        "based on GPUs",
+        "easy to manipulate"
+      ],
+      "answer": "very fast",
+      "feedback": "The lecture states analog processing is very fast because A/D and D/A conversion time is saved."
+    },
+    {
+      "id": 16,
+      "type": "mcq",
+      "text": "Spatial resolution is mainly determined by:",
+      "options": [
+        "student attendance",
+        "audio frequency",
+        "text length",
+        "sampling"
+      ],
+      "answer": "sampling",
+      "feedback": "The lecture says sampling is the principal factor determining spatial resolution."
+    },
+    {
+      "id": 17,
+      "type": "mcq",
+      "text": "An image histogram is a graphical representation of:",
+      "options": [
+        "the number of image layers",
+        "intensity distribution in a digital image",
+        "the image file name",
+        "the camera price"
+      ],
+      "answer": "intensity distribution in a digital image",
+      "feedback": "The lecture defines image histogram this way."
+    },
+    {
+      "id": 18,
+      "type": "truefalse",
+      "text": "The lecture states that CCD and CMOS sensors have identical effects on AI performance.",
+      "answer": false,
+      "feedback": "The lecture emphasizes that sensor differences matter for AI."
+    },
+    {
+      "id": 19,
+      "type": "mcq",
+      "text": "Image acquisition converts visual information from the real world into:",
+      "options": [
+        "a digital format processed by computers",
+        "a non-pictorial description only",
+        "an analog-only photograph",
+        "a handwritten report"
+      ],
+      "answer": "a digital format processed by computers",
+      "feedback": "This is directly stated in the lecture notes."
+    },
+    {
+      "id": 20,
+      "type": "mcq",
+      "text": "Which sequence best matches the image acquisition steps in the lecture?",
+      "options": [
+        "Light sensing, signal analog-to-digital conversion, image formation",
+        "Rotation, scaling, reflection",
+        "Segmentation, classification, deletion",
+        "Histogram, matching, printing"
+      ],
+      "answer": "Light sensing, signal analog-to-digital conversion, image formation",
+      "feedback": "These three steps are explicitly listed in the lecture notes."
+    },
+    {
+      "id": 21,
+      "type": "mcq",
+      "text": "According to the lecture notes, Computer Vision is a field of AI and Computer Science that trains computers to:",
+      "options": [
+        "store images without analysis",
+        "interpret and understand the visual world",
+        "generate random text from images",
+        "replace computer graphics"
+      ],
+      "answer": "interpret and understand the visual world",
+      "feedback": "The lecture defines Computer Vision as training computers to interpret and understand the visual world."
+    },
+    {
+      "id": 22,
+      "type": "mcq",
+      "text": "In h(rk) = nk, nk represents:",
+      "options": [
+        "the image width only",
+        "the value of HSV saturation",
+        "the kth camera lens",
+        "the number of pixels having gray level rk"
+      ],
+      "answer": "the number of pixels having gray level rk",
+      "feedback": "The lecture states nk is the number of pixels with gray level rk."
+    },
+    {
+      "id": 23,
+      "type": "mcq",
+      "text": "According to the lecture trade-off, CCD is suitable when:",
+      "options": [
+        "speed and power efficiency are always more important",
+        "no image quality is needed",
+        "image quality is more important than speed",
+        "only smartphone use is required"
+      ],
+      "answer": "image quality is more important than speed",
+      "feedback": "The lecture notes CCD for scientific AI/medical diagnosis where image quality is prioritized."
+    },
+    {
+      "id": 24,
+      "type": "truefalse",
+      "text": "The lecture states that digital processing is always faster than analog processing.",
+      "answer": false,
+      "feedback": "The lecture states analog processing is very fast, while digital processing is slower but easier to manipulate."
+    },
+    {
+      "id": 25,
+      "type": "mcq",
+      "text": "Image resolution depends on:",
+      "options": [
+        "sampling and gray levels",
+        "file name only",
+        "the number of objects inside the image",
+        "whether the image is printed"
+      ],
+      "answer": "sampling and gray levels",
+      "feedback": "The lecture states that resolution depends on sampling and gray levels."
+    },
+    {
+      "id": 26,
+      "type": "truefalse",
+      "text": "A bigger sampling rate improves the approximation of a digitized image.",
+      "answer": true,
+      "feedback": "The lecture states that bigger sampling rate and gray scale improve approximation."
+    },
+    {
+      "id": 27,
+      "type": "mcq",
+      "text": "Contrast Stretching improves contrast by:",
+      "options": [
+        "randomly shuffling pixels",
+        "stretching the range of intensity values to cover the whole dynamic range",
+        "removing all pixels",
+        "changing the image spatial resolution"
+      ],
+      "answer": "stretching the range of intensity values to cover the whole dynamic range",
+      "feedback": "This is the lecture definition of Contrast Stretching."
+    },
+    {
+      "id": 28,
+      "type": "fill",
+      "text": "Spatial resolution is mainly determined by ___.",
+      "answer": "sampling",
+      "feedback": "The lecture states sampling is the principal factor determining spatial resolution."
+    },
+    {
+      "id": 29,
+      "type": "matching",
+      "text": "Match each enhancement concept with its lecture meaning.",
+      "pairs": [
+        { "term": "Histogram Equalization", "definition": "Redistributes intensity values more evenly" },
+        { "term": "Noise Reduction", "definition": "Reduces unwanted image disturbance" },
+        { "term": "Contrast Stretching", "definition": "Stretches intensity values to cover the whole dynamic range" }
+      ]
+    },
+    {
+      "id": 30,
+      "type": "truefalse",
+      "text": "The lecture argues that deep learning is not a replacement for classical image processing foundations.",
+      "answer": true,
+      "feedback": "The lecture presents deep learning as built on or supported by classical image processing ideas."
+    }
+  ]
+}
