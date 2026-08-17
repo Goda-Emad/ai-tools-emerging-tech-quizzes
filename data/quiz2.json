@@ -1,1 +1,259 @@
-
+{
+  "id": 2,
+  "title": "Quiz 2",
+  "topic": "Convolution, Filtering, Noise & Feature Detection – Weeks 2 & 3",
+  "duration": 30,
+  "questions": [
+    {
+      "id": 1,
+      "type": "mcq",
+      "text": "Spatial filtering differs from intensity transformation because it:",
+      "options": [
+        "Requires no mathematical operation",
+        "Works only on image borders",
+        "Uses neighboring pixels around the current pixel",
+        "Never changes pixel values"
+      ],
+      "answer": "Uses neighboring pixels around the current pixel",
+      "feedback": "Spatial filtering considers local neighborhoods."
+    },
+    {
+      "id": 2,
+      "type": "matching",
+      "text": "Match each padding type with its border-filling method.",
+      "pairs": [
+        { "term": "Replica padding",    "definition": "Extends edge pixels outward" },
+        { "term": "Reflection padding", "definition": "Mirrors image values at the image boundary" },
+        { "term": "Zero padding",       "definition": "Adds zeros around the image border" }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "text": "Why is padding used during convolution/filtering?",
+      "options": [
+        "To remove the need for a kernel",
+        "To allow the kernel to work near image borders and help preserve output size",
+        "To classify images directly without features",
+        "To convert RGB to HSV"
+      ],
+      "answer": "To allow the kernel to work near image borders and help preserve output size",
+      "feedback": "The lecture explains padding solves border-neighborhood issues and can maintain size."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "text": "Edge detection identifies image points where:",
+      "options": [
+        "The image has no useful shape information",
+        "Brightness changes sharply or discontinuities occur",
+        "The object shape changes",
+        "All pixel values are exactly equal"
+      ],
+      "answer": "Brightness changes sharply or discontinuities occur",
+      "feedback": "This matches the lecture definition of edge detection."
+    },
+    {
+      "id": 5,
+      "type": "mcq",
+      "text": "How does a Gaussian filter weight pixels?",
+      "options": [
+        "All pixels always have exactly equal weight",
+        "Pixels closer to the center have more weight than pixels farther away",
+        "Only border pixels have weights",
+        "Pixels closer to the center have less weight than pixels farther away"
+      ],
+      "answer": "Pixels closer to the center have more weight than pixels farther away",
+      "feedback": "This is the key distinction of Gaussian filtering in the lecture."
+    },
+    {
+      "id": 6,
+      "type": "mcq",
+      "text": "An image gradient is:",
+      "options": [
+        "A directional change in image intensity",
+        "A padding method",
+        "The same as a feature vector",
+        "Number of edges in image"
+      ],
+      "answer": "A directional change in image intensity",
+      "feedback": "This is the lecture definition of an image gradient."
+    },
+    {
+      "id": 7,
+      "type": "mcq",
+      "text": "Salt-and-pepper noise is visually distinctive because it appears as:",
+      "options": [
+        "Very bright and very dark impulse points",
+        "Points with value larger than 255",
+        "Points from 0 to 255 value",
+        "Points from 0 to 128 value"
+      ],
+      "answer": "Very bright and very dark impulse points",
+      "feedback": "The lecture describes salt-and-pepper noise as bright salt and dark pepper points."
+    },
+    {
+      "id": 8,
+      "type": "mcq",
+      "text": "What happens when the smoothing mask size becomes larger?",
+      "options": [
+        "The image becomes more colored",
+        "The image becomes perfectly sharper in all cases",
+        "The image becomes more smoothed/blurred and sharp details decrease",
+        "The operation becomes unrelated to filtering"
+      ],
+      "answer": "The image becomes more smoothed/blurred and sharp details decrease",
+      "feedback": "The lecture shows that larger masks produce stronger blur and fewer sharp details."
+    },
+    {
+      "id": 9,
+      "type": "matching",
+      "text": "Match each concept with its correct description.",
+      "pairs": [
+        { "term": "Corner", "definition": "Formed when two edges meet" },
+        { "term": "Ridge",  "definition": "Thin line darker or brighter than its neighborhood" },
+        { "term": "Edge",   "definition": "Sudden or rapid intensity change" },
+        { "term": "Blob",   "definition": "Bright object in dark background or dark object in bright background" }
+      ]
+    },
+    {
+      "id": 10,
+      "type": "mcq",
+      "text": "Which filter sizes are mentioned as commonly used spatial filters?",
+      "options": [
+        "1×100, 2×200, and 3×300",
+        "Only 1×1 filters",
+        "3×3, 5×5, and 7×7",
+        "Only 100×100 filters"
+      ],
+      "answer": "3×3, 5×5, and 7×7",
+      "feedback": "The lecture notes mention these typical small filter sizes."
+    },
+    {
+      "id": 11,
+      "type": "matching",
+      "text": "Match each filter/operator with its main role.",
+      "pairs": [
+        { "term": "Laplacian operator", "definition": "Uses second derivative for edge/detail enhancement" },
+        { "term": "Median filter",      "definition": "Sorts values and selects the middle value" },
+        { "term": "Box filter",         "definition": "Simple equal-weight averaging" },
+        { "term": "Gaussian filter",    "definition": "Weighted averaging with stronger center weights" }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "matching",
+      "text": "Match each noise type with its description.",
+      "pairs": [
+        { "term": "Salt-and-pepper noise", "definition": "Very bright or very dark impulse points" },
+        { "term": "Gaussian noise",        "definition": "Small random changes added across pixels" },
+        { "term": "Quantization noise",    "definition": "Small errors from rounding continuous values to digital levels" },
+        { "term": "Speckle noise",         "definition": "Multiplicative noise common in ultrasound and SAR" }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "mcq",
+      "text": "In a 3×3 box filter, each coefficient is typically:",
+      "options": [
+        "1/9",
+        "The median value",
+        "9",
+        "0 only"
+      ],
+      "answer": "1/9",
+      "feedback": "The lecture example uses nine equal coefficients of 1/9."
+    },
+    {
+      "id": 14,
+      "type": "mcq",
+      "text": "Gaussian noise generally affects an image by:",
+      "options": [
+        "Only adding zeros around the border",
+        "Only replacing the center pixel with the median",
+        "Only detecting diagonal edges",
+        "Adding small random values across pixels"
+      ],
+      "answer": "Adding small random values across pixels",
+      "feedback": "The lecture describes Gaussian noise as subtle statistical noise that alters pixels randomly."
+    },
+    {
+      "id": 15,
+      "type": "mcq",
+      "text": "Median filtering is particularly effective for:",
+      "options": [
+        "Only reducing image resolution",
+        "Only perfect noise-free images",
+        "Salt-and-pepper / impulse noise",
+        "Only frequency-domain filtering"
+      ],
+      "answer": "Salt-and-pepper / impulse noise",
+      "feedback": "The lecture states median filtering is strong for spiky impulse noise."
+    },
+    {
+      "id": 16,
+      "type": "mcq",
+      "text": "What is a key trade-off of smoothing filters?",
+      "options": [
+        "They reduce noise but can blur edges and lose fine details",
+        "They reduce noise and edges in image",
+        "They always improve all details without any drawback",
+        "They improve edges and fine details"
+      ],
+      "answer": "They reduce noise but can blur edges and lose fine details",
+      "feedback": "The lecture emphasizes this noise-detail trade-off."
+    },
+    {
+      "id": 17,
+      "type": "mcq",
+      "text": "In Lecture 2, what is convolution in image processing?",
+      "options": [
+        "Sliding a filter/kernel over an image, adding noise to pixels",
+        "Drawing a synthetic image from non-pictorial information",
+        "Sliding a filter/kernel over an image, multiplying corresponding values, and summing the result",
+        "Converting the continuous to discrete values"
+      ],
+      "answer": "Sliding a filter/kernel over an image, multiplying corresponding values, and summing the result",
+      "feedback": "The lecture defines convolution as sliding a kernel over an image and applying multiply-and-sum at each position."
+    },
+    {
+      "id": 18,
+      "type": "mcq",
+      "text": "A corner is formed when:",
+      "options": [
+        "Two edges meet",
+        "Gaussian noise is present",
+        "An image is converted to HSV Color space",
+        "All pixels have the same intensity"
+      ],
+      "answer": "Two edges meet",
+      "feedback": "The lecture defines a corner as formed when two edges meet."
+    },
+    {
+      "id": 19,
+      "type": "mcq",
+      "text": "Median filtering replaces the center pixel with:",
+      "options": [
+        "Always zero",
+        "The middle value after sorting the gray levels in the mask",
+        "The filename of the image",
+        "The arithmetic average of all pixels"
+      ],
+      "answer": "The middle value after sorting the gray levels in the mask",
+      "feedback": "Median filtering is based on ordering the neighborhood and choosing the middle value."
+    },
+    {
+      "id": 20,
+      "type": "mcq",
+      "text": "What does the Laplacian operator compute?",
+      "options": [
+        "The second derivative of the image and detects edges in either X or Y direction",
+        "The first derivative in X direction",
+        "The second derivative of the image and detects edges in all directions at once",
+        "The first derivative in Y direction"
+      ],
+      "answer": "The second derivative of the image and detects edges in all directions at once",
+      "feedback": "The lecture states Laplacian computes second derivative and detects all directions at once."
+    }
+  ]
+}
