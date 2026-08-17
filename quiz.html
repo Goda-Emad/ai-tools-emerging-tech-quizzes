@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz – AI Tools & Emerging Technologies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="quiz-layout">
 
+  <!-- ===== PROGRESS BAR ===== -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+  </div>
+
+  <!-- ===== QUIZ HEADER ===== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="quiz-header-inner">
+
+        <!-- Back + Title -->
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost" id="btnBack" onclick="window.location.href='index.html'">
+            ← Back
+          </button>
+          <div>
+            <div class="question-number" id="quizTitle">Quiz</div>
+            <div class="quiz-meta-pill" id="quizTopic" style="margin-top:4px;"></div>
+          </div>
+        </div>
+
+        <!-- Timer + Question counter -->
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="quiz-meta-pill" id="questionCounter">1 / 30</span>
+          <div class="timer" id="timer">30:00</div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== QUESTION AREA ===== -->
+  <main class="question-wrap">
+    <div class="container">
+      <div class="question-card" id="questionCard">
+
+        <div class="question-number"  id="qNumber">Question 1</div>
+        <div class="question-type-tag" id="qTypeTag">MCQ</div>
+        <p  class="question-text"    id="qText"></p>
+
+        <!-- Dynamic answer area -->
+        <div id="answerArea"></div>
+
+        <!-- Feedback -->
+        <div class="feedback-box" id="feedbackBox" style="display:none;"></div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== QUIZ FOOTER / NAV ===== -->
+  <footer class="quiz-footer">
+    <div class="container">
+      <div class="quiz-nav">
+
+        <button class="btn btn-secondary" id="btnPrev">← Prev</button>
+
+        <!-- Dot indicators -->
+        <div class="question-dots" id="questionDots"></div>
+
+        <button class="btn btn-primary" id="btnNext">Next →</button>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== RESULTS OVERLAY ===== -->
+  <div id="resultsOverlay" style="display:none; position:fixed; inset:0; background:var(--navy-950); z-index:200; overflow-y:auto;">
+    <div class="results-page">
+      <div class="results-card">
+
+        <div class="hero-eyebrow" style="margin:0 auto var(--sp-5);">🎉 Quiz Complete</div>
+        <h2 id="resultsTitle" style="margin-bottom:var(--sp-6);">Great job!</h2>
+
+        <!-- Score circle -->
+        <div class="score-circle" id="scoreCircle">
+          <div>
+            <div class="score-value" id="scorePct">0%</div>
+            <div class="score-label">Score</div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="results-stats">
+          <div class="stat-box good">
+            <div class="stat-val" id="statCorrect">0</div>
+            <div class="stat-lbl">Correct</div>
+          </div>
+          <div class="stat-box bad">
+            <div class="stat-val" id="statWrong">0</div>
+            <div class="stat-lbl">Wrong</div>
+          </div>
+          <div class="stat-box neutral">
+            <div class="stat-val" id="statTime">0:00</div>
+            <div class="stat-lbl">Time Used</div>
+          </div>
+        </div>
+
+        <!-- Grade message -->
+        <div class="feedback-box" id="gradeMsg" style="justify-content:center; text-align:center;"></div>
+
+        <!-- Actions -->
+        <div class="results-actions">
+          <button class="btn btn-secondary" onclick="window.location.href='index.html'">🏠 Home</button>
+          <button class="btn btn-primary"   id="btnRetry">🔄 Retry Quiz</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
