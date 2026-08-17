@@ -1,1 +1,213 @@
-
+{
+  "id": 4,
+  "title": "Quiz 4",
+  "topic": "NLP Fundamentals",
+  "duration": 20,
+  "questions": [
+    {
+      "id": 1,
+      "type": "truefalse",
+      "text": "Stop Words such as \"the,\" \"a,\" and \"is\" are eliminated in order to assign grammatical category during sentence analysis.",
+      "answer": false,
+      "feedback": "Stop words are frequent words that may be removed to simplify some analyses."
+    },
+    {
+      "id": 2,
+      "type": "matching",
+      "text": "Match each NLP concept with its description.",
+      "pairs": [
+        { "term": "Generative AI", "definition": "AI category that creates new content from learned patterns" },
+        { "term": "NLP", "definition": "AI branch for reading, understanding, interpreting, and generating human language" },
+        { "term": "LLM", "definition": "Large model trained on massive text data to learn language patterns" },
+        { "term": "Prompt", "definition": "Text or command used to guide a generative AI response" }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "text": "Large Language Models are mainly based on deep neural networks and especially which architecture?",
+      "options": [
+        "Transformer architecture",
+        "Relational database architecture",
+        "Decision tree architecture",
+        "Manual rule-table architecture"
+      ],
+      "answer": "Transformer architecture",
+      "feedback": "LLMs are deep neural network models that commonly rely on Transformer architecture."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "text": "At their core, LLMs generate text mainly by repeatedly predicting what?",
+      "options": [
+        "The most probable next word or token",
+        "The topic history",
+        "The exact sentence word count",
+        "The next topic"
+      ],
+      "answer": "The most probable next word or token",
+      "feedback": "LLMs act as sophisticated prediction engines that repeatedly predict the next likely word or token."
+    },
+    {
+      "id": 5,
+      "type": "truefalse",
+      "text": "Information extraction and response generation are mutually exclusive events.",
+      "answer": false,
+      "feedback": "An LLM can extract, generate, or combine retrieval and generation depending on the task design."
+    },
+    {
+      "id": 6,
+      "type": "truefalse",
+      "text": "LLMs are commonly based on deep neural networks and Transformer architecture.",
+      "answer": true,
+      "feedback": "Transformer-based deep neural networks are central to modern LLMs."
+    },
+    {
+      "id": 7,
+      "type": "matching",
+      "text": "Match each approach with its role.",
+      "pairs": [
+        { "term": "RAG", "definition": "Retrieves external information and generates an answer grounded in it" },
+        { "term": "Information Extraction", "definition": "Acts like a reader or annotator that pulls facts from a source" },
+        { "term": "Parametric memory", "definition": "Knowledge stored inside the model from training patterns" },
+        { "term": "Text Generation", "definition": "Acts like a writer or speaker that produces fluent language" }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "truefalse",
+      "text": "Traditional IE always needs labeled training data for each new field to extract structured information from text.",
+      "answer": true,
+      "feedback": "Traditional Information Extraction typically requires labeled training data for each new field."
+    },
+    {
+      "id": 9,
+      "type": "mcq",
+      "text": "Which approach is associated with learning-based sentiment analysis?",
+      "options": [
+        "Manually drawing each word",
+        "Training a classifier on annotated texts using algorithms such as SVM or KNN",
+        "Deleting all documents before classification",
+        "Using only physical sensors"
+      ],
+      "answer": "Training a classifier on annotated texts using algorithms such as SVM or KNN",
+      "feedback": "Learning-based sentiment analysis trains classifiers on labeled examples; SVM and KNN are examples."
+    },
+    {
+      "id": 10,
+      "type": "matching",
+      "text": "Match each level of linguistic analysis with its focus.",
+      "pairs": [
+        { "term": "Semantics", "definition": "Literal meaning of words and sentences" },
+        { "term": "Lexical analysis", "definition": "Words, tokens, POS tagging, stop words, and stemming" },
+        { "term": "Pragmatics", "definition": "Meaning in a particular context" },
+        { "term": "Morphology", "definition": "Morphemes and word construction" },
+        { "term": "Syntactic analysis", "definition": "Sentence structure and grammar parsing" }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "truefalse",
+      "text": "A prompt is a text or command used to elicit a desired response from a generative AI tool.",
+      "answer": true,
+      "feedback": "Prompts guide the model toward the requested output."
+    },
+    {
+      "id": 12,
+      "type": "matching",
+      "text": "Match each NLP application with its main purpose.",
+      "pairs": [
+        { "term": "Information Retrieval", "definition": "Find relevant documents or information from a query" },
+        { "term": "Question Answering", "definition": "Provide answers to natural language questions" },
+        { "term": "Machine Translation", "definition": "Translate text or speech from one language to another" },
+        { "term": "Information Extraction", "definition": "Convert text into structured machine-readable data" },
+        { "term": "Sentiment Analysis", "definition": "Identify emotions, opinions, or attitudes in text" }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "truefalse",
+      "text": "Information Extraction and text generation commonly produce structured or semi-structured output.",
+      "answer": false,
+      "feedback": "IE converts unstructured or semi-structured text into structured data."
+    },
+    {
+      "id": 14,
+      "type": "mcq",
+      "text": "How is lemmatization different from simple stemming?",
+      "options": [
+        "It converts text into image pixels",
+        "It ignores grammar and context completely",
+        "It always removes the first letter only",
+        "It finds a valid base form using dictionary-like knowledge and the word's role in the sentence"
+      ],
+      "answer": "It finds a valid base form using dictionary-like knowledge and the word's role in the sentence",
+      "feedback": "Lemmatization is more linguistically informed than stemming because it considers the correct base form and context."
+    },
+    {
+      "id": 15,
+      "type": "truefalse",
+      "text": "Regardless of the prompt, an LLM can be directed to perform either extraction or generation, or both.",
+      "answer": false,
+      "feedback": "The same engine can act differently depending on prompt, source, and required output."
+    },
+    {
+      "id": 16,
+      "type": "matching",
+      "text": "Match each NLP operation with its meaning.",
+      "pairs": [
+        { "term": "POS tagging", "definition": "Assigning categories such as noun, verb, or adjective" },
+        { "term": "Parsing", "definition": "Analyzing grammatical structure and word relationships" },
+        { "term": "Stemming", "definition": "Removing suffixes to obtain an approximate stem" },
+        { "term": "Stop word removal", "definition": "Removing frequent low-information words in suitable tasks" },
+        { "term": "Tokenization", "definition": "Breaking text into smaller processable units" }
+      ]
+    },
+    {
+      "id": 17,
+      "type": "mcq",
+      "text": "What does zero-shot Information Extraction mean?",
+      "options": [
+        "Generating images without text prompts",
+        "Searching only file names and ignoring content",
+        "Extracting information only after thousands of labeled examples",
+        "Extracting structured information for new categories without specific training examples for those categories"
+      ],
+      "answer": "Extracting structured information for new categories without specific training examples for those categories",
+      "feedback": "Zero-shot IE generalizes to new extraction tasks using a natural language description rather than task-specific labeled examples."
+    },
+    {
+      "id": 18,
+      "type": "truefalse",
+      "text": "NLP includes both understanding language and generating language.",
+      "answer": true,
+      "feedback": "Natural Language Understanding and Natural Language Generation are major parts of NLP."
+    },
+    {
+      "id": 19,
+      "type": "mcq",
+      "text": "Which level deals with meaning in a particular context?",
+      "options": [
+        "Pragmatics",
+        "Video generation",
+        "Morphological parsing",
+        "Stemming"
+      ],
+      "answer": "Pragmatics",
+      "feedback": "Pragmatics considers context, intention, and how meaning changes in real situations."
+    },
+    {
+      "id": 20,
+      "type": "mcq",
+      "text": "Why are LLMs trained on massive datasets of text?",
+      "options": [
+        "To convert language directly into images only",
+        "To learn patterns and structures of language",
+        "To memorize only file names",
+        "To avoid using any statistical learning"
+      ],
+      "answer": "To learn patterns and structures of language",
+      "feedback": "Large text datasets help LLMs learn language patterns, structures, and contextual relationships."
+    }
+  ]
+}
