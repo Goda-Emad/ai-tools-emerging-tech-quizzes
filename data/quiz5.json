@@ -1,1 +1,228 @@
-
+{
+  "id": 5,
+  "title": "Quiz 5",
+  "topic": "LLM Architecture & Core Properties",
+  "duration": 20,
+  "questions": [
+    {
+      "id": 1,
+      "type": "mcq",
+      "text": "Which items are part of LLM scale?",
+      "options": [
+        "Parameters, data, and compute",
+        "Generality, Context, and Compute",
+        "IE, IR, and RAG",
+        "Vocabulary size, Tokens, and Training Corpora"
+      ],
+      "answer": "Parameters, data, and compute",
+      "feedback": "Scale includes model parameters, training data, and computational resources."
+    },
+    {
+      "id": 2,
+      "type": "mcq",
+      "text": "What does nuanced instruction following mean?",
+      "options": [
+        "Responding to detailed user directions with appropriate behavior",
+        "Out of context response generation",
+        "use appropriate model to understand the user prompt",
+        "Ignoring the prompt and returning appropriate behavior"
+      ],
+      "answer": "Responding to detailed user directions with appropriate behavior",
+      "feedback": "Nuanced instruction following means using the prompt details to guide the response."
+    },
+    {
+      "id": 3,
+      "type": "matching",
+      "text": "Match each limitation with its meaning.",
+      "pairs": [
+        { "term": "Hallucination", "definition": "Plausible but factually wrong output" },
+        { "term": "Knowledge cutoff", "definition": "Static training data without real-time awareness" },
+        { "term": "Reasoning brittleness", "definition": "Failure on unfamiliar logical patterns" },
+        { "term": "Bias and toxicity", "definition": "Reflection or amplification of problematic training patterns" }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "matching",
+      "text": "Match each Transformer component with its role.",
+      "pairs": [
+        { "term": "Feed-forward network", "definition": "Refines each token representation" },
+        { "term": "Positional encoding", "definition": "Adds order information" },
+        { "term": "Self-attention", "definition": "Relates tokens inside the same sequence" },
+        { "term": "Token embedding", "definition": "Converts a token into a vector" }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "mcq",
+      "text": "Why are very large parameter counts important for LLMs?",
+      "options": [
+        "They make the model ignore language patterns",
+        "They force the model to use only symbolic rules",
+        "They remove the need for training data",
+        "Some capabilities appear only after critical scale thresholds"
+      ],
+      "answer": "Some capabilities appear only after critical scale thresholds",
+      "feedback": "Beyond certain scales, models may show new capabilities such as reasoning or instruction following."
+    },
+    {
+      "id": 6,
+      "type": "mcq",
+      "text": "What is a benefit of more parameters in an LLM?",
+      "options": [
+        "They force the positional information of tokens to be considered",
+        "They remove the need for tokens inside the model",
+        "They allow storage of more nuanced patterns and knowledge",
+        "They make the model Huge and accept multi-modality"
+      ],
+      "answer": "They allow storage of more nuanced patterns and knowledge",
+      "feedback": "More parameters increase capacity for nuanced patterns and knowledge."
+    },
+    {
+      "id": 7,
+      "type": "matching",
+      "text": "Match each property with the correct description.",
+      "pairs": [
+        { "term": "Generality", "definition": "One pre-trained model adapts to many tasks" },
+        { "term": "Scaling law", "definition": "Predictable improvement when scale factors increase together" },
+        { "term": "In-context learning", "definition": "Learning from prompt examples without weight updates" },
+        { "term": "Scale", "definition": "Parameters, data, and compute" }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "mcq",
+      "text": "Which set lists the three defining properties of modern LLMs?",
+      "options": [
+        "Bias Toxicity, and Compute Cost",
+        "Hallucination, Knowledge Cut-off, and Context Limits",
+        "Scale, generality, and in-context learning",
+        "Encoder, Decoder, and Embedding"
+      ],
+      "answer": "Scale, generality, and in-context learning",
+      "feedback": "The three properties are scale, generality, and in-context learning."
+    },
+    {
+      "id": 9,
+      "type": "truefalse",
+      "text": "In-context learning requires gradient updates to the model weights during the prompt.",
+      "answer": false,
+      "feedback": "In-context learning uses examples in the prompt without changing weights."
+    },
+    {
+      "id": 10,
+      "type": "mcq",
+      "text": "What does cross-lingual transfer help a model do?",
+      "options": [
+        "Use multiple tokens for each word in training",
+        "Convert every word into the multiple tokens",
+        "Apply learned language patterns across different languages",
+        "Train the model on multiple language"
+      ],
+      "answer": "Apply learned language patterns across different languages",
+      "feedback": "Cross-lingual transfer supports performance across languages."
+    },
+    {
+      "id": 11,
+      "type": "truefalse",
+      "text": "Self-attention helps a model relate words to other words in the same sequence.",
+      "answer": true,
+      "feedback": "Self-attention captures internal sequence relationships."
+    },
+    {
+      "id": 12,
+      "type": "mcq",
+      "text": "What does generality mean for a pre-trained LLM?",
+      "options": [
+        "The model trained on general data and knowledge",
+        "The model works generally without user interaction",
+        "A model can answer a general response to the prompt",
+        "One model can adapt to thousands of tasks"
+      ],
+      "answer": "One model can adapt to thousands of tasks",
+      "feedback": "Generality means a single pre-trained model can support many tasks."
+    },
+    {
+      "id": 13,
+      "type": "matching",
+      "text": "Match each core LLM term with its meaning.",
+      "pairs": [
+        { "term": "Emergent capability", "definition": "Capability that appears beyond a scale threshold" },
+        { "term": "Next-token prediction", "definition": "Training objective that predicts the following token" },
+        { "term": "Token", "definition": "Word or subword unit processed by the model" },
+        { "term": "LLM", "definition": "Deep neural network trained on massive text corpora" }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "mcq",
+      "text": "Why are dimensions such as 512, 768, 1024, or 4096 used?",
+      "options": [
+        "They remove the need for vocabulary",
+        "They force every word to mean the same thing",
+        "They replace training data entirely",
+        "They provide capacity to capture subtle distinctions"
+      ],
+      "answer": "They provide capacity to capture subtle distinctions",
+      "feedback": "More dimensions give capacity to represent fine-grained distinctions."
+    },
+    {
+      "id": 15,
+      "type": "mcq",
+      "text": "What does greater compute enable during LLM training?",
+      "options": [
+        "Processing larger models on more data",
+        "Limiting the model to few tokens and context",
+        "Avoiding all matrix multiplications",
+        "Replacing training with manual rules"
+      ],
+      "answer": "Processing larger models on more data",
+      "feedback": "Greater compute enables bigger training runs over more data."
+    },
+    {
+      "id": 16,
+      "type": "truefalse",
+      "text": "The decoder can generate output one token at a time using previous tokens and encoder information.",
+      "answer": true,
+      "feedback": "Decoder generation is autoregressive and can use cross-attention to the encoder."
+    },
+    {
+      "id": 17,
+      "type": "mcq",
+      "text": "Which statement best describes a Large Language Model?",
+      "options": [
+        "A deep neural network trained on massive text corpora to model token sequences",
+        "A hardware device designed for speech recording",
+        "A database table that stores fixed answers to every question",
+        "A rule-based grammar checker that only corrects spelling"
+      ],
+      "answer": "A deep neural network trained on massive text corpora to model token sequences",
+      "feedback": "An LLM is a deep neural network trained on large text collections to model sequences of tokens."
+    },
+    {
+      "id": 18,
+      "type": "truefalse",
+      "text": "Multi-head attention runs several attention heads sequentially to capture different relationships.",
+      "answer": false,
+      "feedback": "Different heads can focus on different patterns such as grammar, meaning, or position, but they run in parallel, not sequentially."
+    },
+    {
+      "id": 19,
+      "type": "truefalse",
+      "text": "Embedding vectors are normally obtained by looking up token IDs in a learned table.",
+      "answer": true,
+      "feedback": "Each token ID maps to a row in the embedding table."
+    },
+    {
+      "id": 20,
+      "type": "matching",
+      "text": "Match each item with the best description.",
+      "pairs": [
+        { "term": "Decoder", "definition": "Generates output tokens" },
+        { "term": "Encoder", "definition": "Reads and represents the input sequence" },
+        { "term": "Masked self-attention", "definition": "Prevents looking ahead during generation" },
+        { "term": "Cross-attention", "definition": "Allows decoder to look at encoder outputs" }
+      ]
+    }
+  ]
+}
