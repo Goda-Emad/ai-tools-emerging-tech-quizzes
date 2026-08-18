@@ -609,6 +609,64 @@ body::after {
 }
 .error-state { color:#f87171; }
 
+/* ══════════════════════════════════════════
+   ── Matching Dropdown FIX ──
+   Forces dropdown text to always be visible
+   regardless of OS / browser theme
+══════════════════════════════════════════ */
+.match-select {
+  width: 100%;
+  padding: 10px 14px;
+  background: #1e293b;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  color: #f1f5f9;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+  appearance: auto;
+  transition: var(--transition);
+}
+
+.match-select:focus {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.match-select:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.match-select option {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+  font-size: 0.88rem;
+}
+
+.match-select option:disabled {
+  color: #64748b !important;
+}
+
+.match-select option:checked,
+.match-select option:hover {
+  background: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+.match-select.correct {
+  border-color: #22c55e;
+  background: #162a1e;
+  color: #4ade80;
+}
+
+.match-select.wrong {
+  border-color: #ef4444;
+  background: #2a1616;
+  color: #f87171;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   body { padding:0 14px 60px; }
