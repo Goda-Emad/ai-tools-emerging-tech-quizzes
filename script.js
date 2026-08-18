@@ -37,7 +37,6 @@ if (PAGE === 'index') {
 
     const quizzes = await Promise.all(promises);
 
-    /* حساب إجمالي الأسئلة الفعلي */
     const totalQuestions = quizzes.reduce((sum, q) => sum + (q?.questions?.length ?? 0), 0);
     const $totalDisplay = document.getElementById('totalQuestionsDisplay');
     if ($totalDisplay) $totalDisplay.textContent = totalQuestions;
@@ -213,7 +212,6 @@ if (PAGE === 'quiz') {
     const list = document.createElement('div');
     list.className = 'cd-list';
 
-    /* Placeholder option */
     const ph = document.createElement('div');
     ph.className = 'cd-option placeholder';
     ph.textContent = '— Select a definition —';
@@ -231,11 +229,9 @@ if (PAGE === 'quiz') {
     wrap._value = savedValue || '';
 
     if (!disabled) {
-      /* Toggle open */
       selected.addEventListener('click', e => {
         e.stopPropagation();
         const isOpen = list.classList.contains('open');
-        /* Close all other open dropdowns */
         document.querySelectorAll('.cd-list.open').forEach(l => {
           l.classList.remove('open');
           l.previousSibling?.classList?.remove('open');
@@ -246,7 +242,6 @@ if (PAGE === 'quiz') {
         }
       });
 
-      /* Select option */
       list.addEventListener('click', e => {
         const opt = e.target.closest('.cd-option');
         if (!opt || opt.classList.contains('placeholder')) return;
@@ -259,7 +254,6 @@ if (PAGE === 'quiz') {
         selected.classList.remove('open');
       });
 
-      /* Close on outside click */
       document.addEventListener('click', () => {
         list.classList.remove('open');
         selected.classList.remove('open');
@@ -592,14 +586,12 @@ if (PAGE === 'quiz') {
     const wrap = document.createElement('div');
     wrap.style.cssText = 'display:flex; flex-direction:column; gap:16px;';
 
-    /* Store dropdown refs */
     const dropdowns = [];
 
     q.pairs.forEach(pair => {
       const row = document.createElement('div');
       row.style.cssText = 'display:grid; grid-template-columns:120px 1fr 32px; align-items:center; gap:10px;';
 
-      /* Term label */
       const termLabel = document.createElement('div');
       termLabel.style.cssText = `
         padding:10px 14px;
@@ -611,21 +603,17 @@ if (PAGE === 'quiz') {
       `;
       termLabel.textContent = pair.term;
 
-      /* Saved value for this pair */
       const savedVal = savedAns ? (savedAns[pair.term] || '') : '';
       const isRowOk  = isCompleted ? (savedVal === pair.definition) : null;
 
-      /* Custom dropdown */
       const dd = buildCustomDropdown(defs, savedVal, isCompleted, isRowOk);
       dropdowns.push({ pair, dd });
 
-      /* Update term label border on completion */
       if (isCompleted) {
         termLabel.style.borderColor = isRowOk ? '#22c55e' : '#ef4444';
         termLabel.style.color       = isRowOk ? '#4ade80' : '#f87171';
       }
 
-      /* Icon */
       const icon = document.createElement('span');
       icon.style.cssText = 'font-size:1.2rem; text-align:center;';
       if (isCompleted) icon.textContent = isRowOk ? '✅' : '❌';
@@ -636,18 +624,25 @@ if (PAGE === 'quiz') {
       wrap.appendChild(row);
     });
 
-    /* Correct answers hint */
-    if (isCompleted && savedAns) {
-      const allOk = q.pairs.every(p => savedAns[p.term] === p.definition);
-      if (!allOk) {
-        const hint = document.createElement('div');
-        hint.style.cssText = 'margin-top:4px; font-size:.82rem; color:#64748b; line-height:2;';
-        hint.innerHTML = '<strong style="color:#f1f5f9">Correct answers:</strong><br>' +
-          q.pairs.map(p =>
-            `<span style="color:#818cf8;font-weight:700;">${p.term}</span> → ${p.definition}`
-          ).join('<br>');
-        wrap.appendChild(hint);
-      }
+    /* ── Correct answers hint (always show when completed, even if all correct) ── */
+    if (isCompleted) {
+      const hint = document.createElement('div');
+      hint.style.cssText = `
+        margin-top: 8px;
+        padding: 12px 16px;
+        background: rgba(129,140,248,0.06);
+        border: 1px solid rgba(129,140,248,0.2);
+        border-radius: 12px;
+        font-size: .83rem;
+        line-height: 2;
+      `;
+      hint.innerHTML = '<strong style="color:#f1f5f9; display:block; margin-bottom:4px;">✅ Correct matches:</strong>' +
+        q.pairs.map(p =>
+          `<span style="color:#818cf8;font-weight:700;">${p.term}</span>` +
+          ` <span style="color:#64748b;">→</span> ` +
+          `<span style="color:#94a3b8;">${p.definition}</span>`
+        ).join('<br>');
+      wrap.appendChild(hint);
     }
 
     /* Save button */
@@ -699,8 +694,7 @@ if (PAGE === 'quiz') {
     } else if (isCorrect) {
       $expTitle.className = 'exp-title correct';
       $expTitle.innerHTML = '✅ Correct!';
-      $expBody.innerHTML  = `<p><strong>Your answer:</strong> ${formatAnswer(q, ans)}</p>
-        <p><strong>Explanation:</strong> ${q.feedback ?? 'Great job!'}</p>`;
+      $expBody.innerHTML  = `<p><strong>Explanation:</strong> ${q.feedback ?? 'Great job!'}</p>`;
     } else {
       $expTitle.className = 'exp-title wrong';
       $expTitle.innerHTML = '❌ Incorrect';
@@ -710,9 +704,22 @@ if (PAGE === 'quiz') {
     }
   }
 
+  /* ── formatAnswer: handles all types including matching ── */
   function formatAnswer(q, val) {
+    if (val === null || val === undefined) return '—';
     if (q.type === 'truefalse') return val === true ? 'True' : 'False';
-    return val ?? '—';
+    if (q.type === 'matching') {
+      if (typeof val === 'object') {
+        return Object.entries(val)
+          .map(([term, def]) => `<span style="color:#818cf8;font-weight:700;">${term}</span> → ${def}`)
+          .join('<br>');
+      }
+      /* fallback: show correct pairs from q.pairs */
+      return q.pairs
+        .map(p => `<span style="color:#818cf8;font-weight:700;">${p.term}</span> → ${p.definition}`)
+        .join('<br>');
+    }
+    return String(val);
   }
 
   /* ════════════════════════════════════════
