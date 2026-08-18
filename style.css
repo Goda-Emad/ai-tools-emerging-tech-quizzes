@@ -103,6 +103,59 @@ body::after {
 .container        { max-width:1280px; margin:0 auto; position:relative; z-index:1; }
 .container--narrow{ max-width:860px; }
 
+/* ── Instructor Banner ── */
+.instructor-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 48px;
+  background: rgba(11,15,26,0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-bottom: 1px solid rgba(129,140,248,0.15);
+  border-radius: 0;
+  margin: 0 -24px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.instructor-img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid rgba(129,140,248,0.5);
+  flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(129,140,248,0.2);
+}
+
+.instructor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.instructor-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.instructor-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.instructor-name:hover { color: #a5b4fc; }
+
 /* ── Hero ── */
 .hero {
   background: rgba(11,15,26,0.8);
@@ -611,8 +664,6 @@ body::after {
 
 /* ══════════════════════════════════════════
    ── Matching Dropdown FIX ──
-   Forces dropdown text to always be visible
-   regardless of OS / browser theme
 ══════════════════════════════════════════ */
 .match-select {
   width: 100%;
@@ -628,48 +679,19 @@ body::after {
   appearance: auto;
   transition: var(--transition);
 }
-
-.match-select:focus {
-  border-color: var(--accent);
-  box-shadow: var(--shadow-glow);
-}
-
-.match-select:disabled {
-  cursor: default;
-  opacity: 0.85;
-}
-
-.match-select option {
-  background: #1e293b !important;
-  color: #f1f5f9 !important;
-  font-size: 0.88rem;
-}
-
-.match-select option:disabled {
-  color: #64748b !important;
-}
-
+.match-select:focus { border-color: var(--accent); box-shadow: var(--shadow-glow); }
+.match-select:disabled { cursor: default; opacity: 0.85; }
+.match-select option { background: #1e293b !important; color: #f1f5f9 !important; font-size: 0.88rem; }
+.match-select option:disabled { color: #64748b !important; }
 .match-select option:checked,
-.match-select option:hover {
-  background: #334155 !important;
-  color: #f1f5f9 !important;
-}
-
-.match-select.correct {
-  border-color: #22c55e;
-  background: #162a1e;
-  color: #4ade80;
-}
-
-.match-select.wrong {
-  border-color: #ef4444;
-  background: #2a1616;
-  color: #f87171;
-}
+.match-select option:hover { background: #334155 !important; color: #f1f5f9 !important; }
+.match-select.correct { border-color: #22c55e; background: #162a1e; color: #4ade80; }
+.match-select.wrong   { border-color: #ef4444; background: #2a1616; color: #f87171; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
   body { padding:0 14px 60px; }
+  .instructor-banner { padding:12px 18px; margin:0 -14px 0; }
   .hero { padding:24px 18px 20px; margin:0 -14px 28px; border-radius:0 0 24px 24px; }
   .hero-content { flex-direction:column; align-items:flex-start; gap:16px; }
   .hero-text h1 { font-size:1.7rem; }
