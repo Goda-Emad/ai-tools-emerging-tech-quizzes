@@ -7,61 +7,56 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ===== HEADER ===== -->
-  <header class="site-header">
-    <div class="container">
-      <nav class="nav">
-        <div class="nav-logo">
-          <div class="nav-logo-icon">🧠</div>
-          <span class="nav-logo-text">AI<span>Quiz</span></span>
+<div class="container">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>AI Tools &amp; <span class="highlight">Emerging Technologies</span></h1>
+        <p>Five quizzes covering Digital Image Processing, CNNs, NLP, and Large Language Models. Pick a quiz and begin.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="number">5</span>
+          <span class="label">Quizzes</span>
         </div>
-        <span class="quiz-meta-pill">📚 AI Tools & Emerging Technologies</span>
-        <div class="nav-team">Eng. Goda · Eng. Gannatallah · Eng. Manar</div>
-      </nav>
+        <div class="stat">
+          <span class="number">150+</span>
+          <span class="label">Questions</span>
+        </div>
+        <div class="stat">
+          <span class="number">MCQ</span>
+          <span class="label">Format</span>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-eyebrow">⚡ Academic Quiz Platform</div>
-      <h1 class="hero-title">
-        Test Your Knowledge in<br/>
-        <em>AI Tools & Emerging</em> Technologies
-      </h1>
-      <p class="hero-subtitle">
-        Five quizzes covering everything from Digital Image Processing fundamentals
-        to CNNs, NLP, and Large Language Models. Pick a quiz and begin.
-      </p>
-    </div>
-  </section>
-
   <!-- ===== QUIZ GRID ===== -->
   <main>
-    <div class="container">
-      <div class="quiz-grid" id="quizGrid">
-        <!-- Cards injected by script.js -->
-      </div>
+    <div class="section-header">
+      <h2>📚 Available Quizzes</h2>
+      <span class="badge-count">5 quizzes</span>
+    </div>
+
+    <div class="card-grid" id="quizGrid">
+      <!-- Cards injected by script.js -->
     </div>
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
-    <div class="container">
-      <p style="margin-bottom:10px; font-size:.82rem; color:var(--gray-400);">
-        Crafted with ❤️ by
-      </p>
-      <div class="footer-team">
-        <span class="footer-name">Eng. Goda Emad</span>
-        <span class="footer-name">Eng. Gannatallah Emad</span>
-        <span class="footer-name">Eng. Manar Harby</span>
-      </div>
-      <p style="margin-top:14px; font-size:.73rem; color:var(--gray-400);">
-        © 2025 AI Tools & Emerging Technologies — All rights reserved
-      </p>
+    <p>Crafted with ❤️ by</p>
+    <div class="footer-team">
+      <span class="footer-name">Eng. Goda Emad</span>
+      <span class="footer-name">Eng. Gannatallah Emad</span>
+      <span class="footer-name">Eng. Manar Harby</span>
     </div>
+    <p style="margin-top:10px;">© 2025 AI Tools &amp; Emerging Technologies — All rights reserved</p>
   </footer>
 
-  <script src="script.js"></script>
+</div><!-- /.container -->
+<script src="script.js"></script>
 </body>
 </html>
