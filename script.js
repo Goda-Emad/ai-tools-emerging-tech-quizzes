@@ -190,6 +190,7 @@ if (PAGE === 'quiz') {
     if (q.type === 'mcq')       return ans === q.answer;
     if (q.type === 'truefalse') return ans === q.answer;
     if (q.type === 'fill')      return String(ans).toLowerCase().trim() === String(q.answer).toLowerCase().trim();
+    if (q.type === 'matching')  return ans !== null && q.pairs.every(p => ans[p.term] === p.definition);
     return false;
   }
 
@@ -322,6 +323,7 @@ if (PAGE === 'quiz') {
         case 'mcq':       renderMCQ(q, ans, isCompleted);       break;
         case 'truefalse': renderTrueFalse(q, ans, isCompleted); break;
         case 'fill':      renderFill(q, ans, isCompleted);      break;
+        case 'matching':  renderMatching(q, ans, isCompleted);  break;
         default:
           $optionsContainer.innerHTML = '<p style="color:var(--text-muted)">Unknown question type.</p>';
       }
@@ -488,6 +490,119 @@ if (PAGE === 'quiz') {
 
     wrap.appendChild(input);
     $optionsContainer.appendChild(wrap);
+  }
+
+  /* ════════════════════════════════════════
+     MATCHING  –  dropdown style
+  ════════════════════════════════════════ */
+
+  function renderMatching(q, savedAns, isCompleted) {
+    const defs = shuffle(q.pairs.map(p => p.definition));
+
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:12px;';
+
+    const rows = q.pairs.map(pair => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex; align-items:center; gap:12px;';
+
+      /* Term label */
+      const label = document.createElement('div');
+      label.className = 'option-btn disabled';
+      label.style.cssText = 'min-width:100px; flex-shrink:0; cursor:default; font-weight:700;';
+      label.textContent = pair.term;
+
+      /* Dropdown */
+      const select = document.createElement('select');
+      select.className = 'fill-input';
+      select.style.cssText = 'flex:1; cursor:pointer;';
+      select.dataset.term  = pair.term;
+
+      const placeholder = document.createElement('option');
+      placeholder.value       = '';
+      placeholder.textContent = '— Select a definition —';
+      placeholder.disabled    = true;
+      placeholder.selected    = true;
+      select.appendChild(placeholder);
+
+      defs.forEach(def => {
+        const opt = document.createElement('option');
+        opt.value = def; opt.textContent = def;
+        select.appendChild(opt);
+      });
+
+      /* Restore saved value */
+      if (savedAns && savedAns[pair.term] != null) {
+        select.value = savedAns[pair.term];
+      }
+
+      /* Status icon */
+      const icon = document.createElement('span');
+      icon.style.cssText = 'font-size:1.2rem; min-width:24px; text-align:center;';
+
+      if (isCompleted) {
+        select.disabled = true;
+        const chosen  = savedAns ? savedAns[pair.term] : null;
+        const isRowOk = chosen === pair.definition;
+        select.classList.add(isRowOk ? 'correct' : 'wrong');
+        icon.textContent = isRowOk ? '✅' : '❌';
+        if (!isRowOk) label.classList.add('wrong');
+      }
+
+      row.appendChild(label);
+      row.appendChild(select);
+      row.appendChild(icon);
+      wrap.appendChild(row);
+
+      return { pair, select, icon, label };
+    });
+
+    /* Show correct answers if wrong after completion */
+    if (isCompleted && savedAns) {
+      const allOk = q.pairs.every(p => savedAns[p.term] === p.definition);
+      if (!allOk) {
+        const hint = document.createElement('div');
+        hint.style.cssText = 'margin-top:10px; font-size:.82rem; color:var(--text-muted); line-height:1.8;';
+        hint.innerHTML = '<strong style="color:var(--text-primary)">Correct answers:</strong><br>' +
+          q.pairs.map(p => `<span style="color:var(--accent)">${p.term}</span> → ${p.definition}`).join('<br>');
+        wrap.appendChild(hint);
+      }
+    }
+
+    /* Check button (only before completion) */
+    if (!isCompleted) {
+      const checkBtn = document.createElement('button');
+      checkBtn.className   = 'nav-btn primary';
+      checkBtn.textContent = 'Save Answers';
+      checkBtn.style.cssText = 'align-self:flex-start; margin-top:8px;';
+
+      checkBtn.addEventListener('click', () => {
+        const allSelected = rows.every(r => r.select.value !== '');
+        if (!allSelected) { showToast('Please select a definition for every term.'); return; }
+
+        const userAnswer = {};
+        rows.forEach(({ pair, select }) => { userAnswer[pair.term] = select.value; });
+
+        const allCorrect = q.pairs.every(p => userAnswer[p.term] === p.definition);
+        userAnswers[current] = userAnswer;
+
+        renderQuestion(); // re-render to show saved state
+      });
+
+      wrap.appendChild(checkBtn);
+    }
+
+    $optionsContainer.appendChild(wrap);
+  }
+
+  /** Fisher-Yates shuffle */
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 
   /* ════════════════════════════════════════
