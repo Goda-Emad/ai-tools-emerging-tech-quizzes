@@ -624,8 +624,9 @@ if (PAGE === 'quiz') {
       wrap.appendChild(row);
     });
 
-    /* ── Correct answers hint (always show when completed, even if all correct) ── */
-    if (isCompleted) {
+    /* ── Correct answers hint (only when wrong or unanswered) ── */
+    const allCorrect = savedAns && q.pairs.every(p => savedAns[p.term] === p.definition);
+    if (isCompleted && !allCorrect) {
       const hint = document.createElement('div');
       hint.style.cssText = `
         margin-top: 8px;
