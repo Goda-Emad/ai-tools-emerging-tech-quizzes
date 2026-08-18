@@ -500,53 +500,75 @@ if (PAGE === 'quiz') {
     const defs = shuffle(q.pairs.map(p => p.definition));
 
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex; flex-direction:column; gap:12px;';
+    wrap.style.cssText = 'display:flex; flex-direction:column; gap:14px;';
 
     const rows = q.pairs.map(pair => {
-      const row = document.createElement('div');
-      row.style.cssText = 'display:flex; align-items:center; gap:12px;';
 
-      /* Term label */
+      /* Row wrapper */
+      const row = document.createElement('div');
+      row.style.cssText = 'display:grid; grid-template-columns:120px 1fr 32px; align-items:center; gap:10px;';
+
+      /* ── Term label ── */
       const label = document.createElement('div');
-      label.className = 'option-btn disabled';
-      label.style.cssText = 'min-width:100px; flex-shrink:0; cursor:default; font-weight:700;';
+      label.style.cssText = `
+        padding: 10px 14px;
+        background: rgba(129,140,248,0.1);
+        border: 1.5px solid rgba(129,140,248,0.3);
+        border-radius: var(--radius-md);
+        font-size: .85rem; font-weight: 700;
+        color: var(--accent);
+        text-align: center;
+      `;
       label.textContent = pair.term;
 
-      /* Dropdown */
+      /* ── Dropdown ── */
       const select = document.createElement('select');
-      select.className = 'fill-input';
-      select.style.cssText = 'flex:1; cursor:pointer;';
-      select.dataset.term  = pair.term;
+      select.style.cssText = `
+        width: 100%;
+        padding: 10px 14px;
+        background: rgba(255,255,255,0.05);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-md);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: .88rem;
+        outline: none;
+        cursor: pointer;
+        appearance: auto;
+      `;
 
-      const placeholder = document.createElement('option');
-      placeholder.value       = '';
-      placeholder.textContent = '— Select a definition —';
-      placeholder.disabled    = true;
-      placeholder.selected    = true;
-      select.appendChild(placeholder);
+      /* Placeholder */
+      const ph = document.createElement('option');
+      ph.value = ''; ph.textContent = '— Select a definition —';
+      ph.disabled = true; ph.selected = true;
+      select.appendChild(ph);
 
+      /* Options */
       defs.forEach(def => {
         const opt = document.createElement('option');
-        opt.value = def; opt.textContent = def;
+        opt.value = def;
+        opt.textContent = def;
         select.appendChild(opt);
       });
 
       /* Restore saved value */
-      if (savedAns && savedAns[pair.term] != null) {
+      if (savedAns && savedAns[pair.term]) {
         select.value = savedAns[pair.term];
       }
 
-      /* Status icon */
+      /* ── Icon ── */
       const icon = document.createElement('span');
-      icon.style.cssText = 'font-size:1.2rem; min-width:24px; text-align:center;';
+      icon.style.cssText = 'font-size:1.2rem; text-align:center;';
 
+      /* ── Completed state ── */
       if (isCompleted) {
         select.disabled = true;
         const chosen  = savedAns ? savedAns[pair.term] : null;
         const isRowOk = chosen === pair.definition;
-        select.classList.add(isRowOk ? 'correct' : 'wrong');
         icon.textContent = isRowOk ? '✅' : '❌';
-        if (!isRowOk) label.classList.add('wrong');
+        select.style.borderColor = isRowOk ? '#22c55e' : '#ef4444';
+        select.style.background  = isRowOk ? 'rgba(34,197,94,0.08)' : 'rgba(239,68,68,0.08)';
+        label.style.borderColor  = isRowOk ? '#22c55e' : '#ef4444';
       }
 
       row.appendChild(label);
@@ -557,24 +579,26 @@ if (PAGE === 'quiz') {
       return { pair, select, icon, label };
     });
 
-    /* Show correct answers if wrong after completion */
+    /* ── Correct answers hint after completion ── */
     if (isCompleted && savedAns) {
       const allOk = q.pairs.every(p => savedAns[p.term] === p.definition);
       if (!allOk) {
         const hint = document.createElement('div');
-        hint.style.cssText = 'margin-top:10px; font-size:.82rem; color:var(--text-muted); line-height:1.8;';
+        hint.style.cssText = 'margin-top:8px; font-size:.82rem; color:var(--text-muted); line-height:1.9;';
         hint.innerHTML = '<strong style="color:var(--text-primary)">Correct answers:</strong><br>' +
-          q.pairs.map(p => `<span style="color:var(--accent)">${p.term}</span> → ${p.definition}`).join('<br>');
+          q.pairs.map(p =>
+            `<span style="color:var(--accent); font-weight:700;">${p.term}</span> → ${p.definition}`
+          ).join('<br>');
         wrap.appendChild(hint);
       }
     }
 
-    /* Check button (only before completion) */
+    /* ── Save button (before completion) ── */
     if (!isCompleted) {
       const checkBtn = document.createElement('button');
       checkBtn.className   = 'nav-btn primary';
       checkBtn.textContent = 'Save Answers';
-      checkBtn.style.cssText = 'align-self:flex-start; margin-top:8px;';
+      checkBtn.style.cssText = 'align-self:flex-start; margin-top:4px;';
 
       checkBtn.addEventListener('click', () => {
         const allSelected = rows.every(r => r.select.value !== '');
@@ -582,11 +606,9 @@ if (PAGE === 'quiz') {
 
         const userAnswer = {};
         rows.forEach(({ pair, select }) => { userAnswer[pair.term] = select.value; });
-
-        const allCorrect = q.pairs.every(p => userAnswer[p.term] === p.definition);
         userAnswers[current] = userAnswer;
 
-        renderQuestion(); // re-render to show saved state
+        renderQuestion();
       });
 
       wrap.appendChild(checkBtn);
