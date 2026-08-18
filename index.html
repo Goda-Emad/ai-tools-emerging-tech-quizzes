@@ -15,6 +15,13 @@
       <div class="hero-text">
         <h1>AI Tools &amp; <span class="highlight">Emerging Technologies</span></h1>
         <p>Five quizzes covering Digital Image Processing, CNNs, NLP, and Large Language Models. Pick a quiz and begin.</p>
+        <!-- Team names in hero -->
+        <p style="margin-top:10px; font-size:0.8rem; color:var(--text-muted);">
+          Made by &nbsp;
+          <span style="color:var(--accent); font-weight:600;">Eng. Goda Emad</span> ·
+          <span style="color:var(--accent); font-weight:600;">Eng. Gannatallah Emad</span> ·
+          <span style="color:var(--accent); font-weight:600;">Eng. Manar Harby</span>
+        </p>
       </div>
       <div class="hero-stats">
         <div class="stat">
@@ -22,7 +29,7 @@
           <span class="label">Quizzes</span>
         </div>
         <div class="stat">
-          <span class="number">150+</span>
+          <span class="number" id="totalQuestionsDisplay">—</span>
           <span class="label">Questions</span>
         </div>
         <div class="stat">
@@ -39,7 +46,6 @@
       <h2>📚 Available Quizzes</h2>
       <span class="badge-count">5 quizzes</span>
     </div>
-
     <div class="card-grid" id="quizGrid">
       <!-- Cards injected by script.js -->
     </div>
