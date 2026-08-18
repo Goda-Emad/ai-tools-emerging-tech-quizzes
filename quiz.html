@@ -7,118 +7,138 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="quiz-layout">
+<div class="container container--narrow">
 
-  <!-- ===== PROGRESS BAR ===== -->
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
-  </div>
+  <!-- ===== HERO HEADER ===== -->
+  <header class="hero">
+    <div class="hero-content">
 
-  <!-- ===== QUIZ HEADER ===== -->
-  <header class="site-header">
-    <div class="container">
-      <div class="quiz-header-inner">
-
-        <!-- Back + Title -->
-        <div style="display:flex; align-items:center; gap:12px;">
-          <button class="btn btn-ghost" id="btnBack" onclick="window.location.href='index.html'">
-            ← Back
-          </button>
-          <div>
-            <div class="question-number" id="quizTitle">Quiz</div>
-            <div class="quiz-meta-pill" id="quizTopic" style="margin-top:4px;"></div>
-          </div>
+      <!-- Left: back + title -->
+      <div class="hero-left">
+        <a href="index.html" class="back-btn" title="Back to Home">←</a>
+        <div class="hero-text">
+          <h1 class="quiz-title" id="quizTitle">Loading…</h1>
+          <span class="subtitle" id="quizSubtitle"></span>
         </div>
-
-        <!-- Timer + Question counter -->
-        <div style="display:flex; align-items:center; gap:12px;">
-          <span class="quiz-meta-pill" id="questionCounter">1 / 30</span>
-          <div class="timer" id="timer">30:00</div>
-        </div>
-
       </div>
+
+      <!-- Right: live stats -->
+      <div class="hero-right">
+        <div class="hero-stat">
+          <span class="number success" id="scoreDisplay">0</span>
+          <span class="label">Score</span>
+        </div>
+        <div class="hero-stat">
+          <span class="number" id="answeredDisplay">0</span>
+          <span class="label">Answered</span>
+        </div>
+        <div class="hero-stat">
+          <span class="number" id="totalDisplay">0</span>
+          <span class="label">Total</span>
+        </div>
+      </div>
+
     </div>
   </header>
 
-  <!-- ===== QUESTION AREA ===== -->
-  <main class="question-wrap">
-    <div class="container">
-      <div class="question-card" id="questionCard">
+  <!-- ===== QUIZ AREA ===== -->
+  <main>
 
-        <div class="question-number"  id="qNumber">Question 1</div>
-        <div class="question-type-tag" id="qTypeTag">MCQ</div>
-        <p  class="question-text"    id="qText"></p>
+    <!-- Jump panel injected by JS above quiz-container -->
 
-        <!-- Dynamic answer area -->
-        <div id="answerArea"></div>
+    <!-- Quiz card -->
+    <div class="quiz-container">
 
-        <!-- Feedback -->
-        <div class="feedback-box" id="feedbackBox" style="display:none;"></div>
-
+      <!-- Progress bar -->
+      <div class="progress-section">
+        <div class="progress-header">
+          <span id="progressLabel">Question 1 of 30</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
       </div>
-    </div>
-  </main>
 
-  <!-- ===== QUIZ FOOTER / NAV ===== -->
-  <footer class="quiz-footer">
-    <div class="container">
-      <div class="quiz-nav">
-
-        <button class="btn btn-secondary" id="btnPrev">← Prev</button>
-
-        <!-- Dot indicators -->
-        <div class="question-dots" id="questionDots"></div>
-
-        <button class="btn btn-primary" id="btnNext">Next →</button>
-
+      <!-- Question header -->
+      <div class="question-header">
+        <span class="q-number" id="qNumber">Q1</span>
+        <span class="q-status" id="qStatus">⬜ Not answered</span>
       </div>
-    </div>
-  </footer>
 
-  <!-- ===== RESULTS OVERLAY ===== -->
-  <div id="resultsOverlay" style="display:none; position:fixed; inset:0; background:var(--navy-950); z-index:200; overflow-y:auto;">
-    <div class="results-page">
+      <!-- Question text -->
+      <div class="question-text" id="questionText">Loading question…</div>
+
+      <!-- Options / Answer area -->
+      <div class="options-grid" id="optionsContainer"></div>
+
+      <!-- Explanation (shown after Get Final Score) -->
+      <div class="explanation-box" id="explanationBox">
+        <div class="exp-title" id="expTitle"></div>
+        <div class="exp-body"  id="expBody"></div>
+      </div>
+
+      <!-- Navigation row -->
+      <div class="nav-section">
+        <button class="nav-btn" id="prevBtn" disabled>← Previous</button>
+        <span   class="nav-counter" id="navCounter">1 / 30</span>
+        <button class="nav-btn" id="nextBtn">Next →</button>
+      </div>
+
+      <!-- Action row -->
+      <div class="nav-section action-row">
+        <button class="nav-btn success" id="submitBtn">
+          ✅ Get Final Score &amp; Feedback
+        </button>
+        <button class="nav-btn danger" id="resetBtn">
+          🔄 Reset
+        </button>
+      </div>
+
+    </div><!-- /.quiz-container -->
+
+    <!-- Keyboard hint injected by JS -->
+
+    <!-- ===== RESULTS PANEL ===== -->
+    <div class="results-container" id="resultsContainer">
       <div class="results-card">
 
-        <div class="hero-eyebrow" style="margin:0 auto var(--sp-5);">🎉 Quiz Complete</div>
-        <h2 id="resultsTitle" style="margin-bottom:var(--sp-6);">Great job!</h2>
+        <span class="trophy">🏆</span>
+        <div class="score-label">Your Final Score</div>
 
-        <!-- Score circle -->
-        <div class="score-circle" id="scoreCircle">
-          <div>
-            <div class="score-value" id="scorePct">0%</div>
-            <div class="score-label">Score</div>
-          </div>
+        <div class="big-score">
+          <span id="finalScoreNum">0</span><span class="score-fraction">&thinsp;/&thinsp;<span id="finalScoreTotal">0</span></span>
         </div>
 
-        <!-- Stats -->
+        <div class="results-percentage" id="finalScorePercent">0%</div>
+
         <div class="results-stats">
-          <div class="stat-box good">
-            <div class="stat-val" id="statCorrect">0</div>
-            <div class="stat-lbl">Correct</div>
+          <div class="rstat">
+            <span class="rnum green"  id="finalCorrect">0</span>
+            <span class="rlabel">✅ Correct</span>
           </div>
-          <div class="stat-box bad">
-            <div class="stat-val" id="statWrong">0</div>
-            <div class="stat-lbl">Wrong</div>
+          <div class="rstat">
+            <span class="rnum red"    id="finalWrong">0</span>
+            <span class="rlabel">❌ Incorrect</span>
           </div>
-          <div class="stat-box neutral">
-            <div class="stat-val" id="statTime">0:00</div>
-            <div class="stat-lbl">Time Used</div>
+          <div class="rstat">
+            <span class="rnum yellow" id="finalUnanswered">0</span>
+            <span class="rlabel">⚠️ Unanswered</span>
           </div>
         </div>
 
-        <!-- Grade message -->
-        <div class="feedback-box" id="gradeMsg" style="justify-content:center; text-align:center;"></div>
-
-        <!-- Actions -->
         <div class="results-actions">
-          <button class="btn btn-secondary" onclick="window.location.href='index.html'">🏠 Home</button>
-          <button class="btn btn-primary"   id="btnRetry">🔄 Retry Quiz</button>
+          <button class="nav-btn primary" id="reviewBtn">👁️ Review Answers</button>
+          <button class="nav-btn"         id="resultsResetBtn">🔄 Retry</button>
+          <a      class="nav-btn" href="index.html" style="text-decoration:none;">🏠 Home</a>
         </div>
 
       </div>
-    </div>
-  </div>
+    </div><!-- /.results-container -->
 
-  <script src="script.js"></script>
+  </main>
+
+</div><!-- /.container -->
+<script src="script.js"></script>
 </body>
 </html>
