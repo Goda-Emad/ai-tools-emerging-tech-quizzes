@@ -1,7 +1,7 @@
 /* ============================================================
    script.js – AI Tools & Emerging Technologies Quiz Platform
    Handles: index page (quiz grid) + quiz page (all question types)
-   Question types: mcq | truefalse | fill
+   Question types: mcq | truefalse | fill | matching
    Behaviour: no timer, manual nav, Get Final Score at end
    ============================================================ */
 
@@ -37,6 +37,11 @@ if (PAGE === 'index') {
     );
 
     const quizzes = await Promise.all(promises);
+
+    /* ── حساب إجمالي الأسئلة الفعلي من الـ JSON ── */
+    const totalQuestions = quizzes.reduce((sum, q) => sum + (q?.questions?.length ?? 0), 0);
+    const $totalDisplay = document.getElementById('totalQuestionsDisplay');
+    if ($totalDisplay) $totalDisplay.textContent = totalQuestions;
 
     quizzes.forEach((quiz, i) => {
       if (!quiz) return;
@@ -83,49 +88,42 @@ if (PAGE === 'quiz') {
   let quizData       = null;
   let questions      = [];
   let current        = 0;
-  let userAnswers    = [];   // null = unanswered, otherwise the stored answer
+  let userAnswers    = [];
   let quizCompleted  = false;
   let isReviewMode   = false;
   let isSubmitting   = false;
 
   /* ── DOM refs ── */
-  const $quizTitle      = document.getElementById('quizTitle');
-  const $quizSubtitle   = document.getElementById('quizSubtitle');
-  const $scoreDisplay   = document.getElementById('scoreDisplay');
-  const $answeredDisplay= document.getElementById('answeredDisplay');
-  const $totalDisplay   = document.getElementById('totalDisplay');
-  const $progressLabel  = document.getElementById('progressLabel');
-  const $progressPct    = document.getElementById('progressPercent');
-  const $progressFill   = document.getElementById('progressFill');
-  const $qNumber        = document.getElementById('qNumber');
-  const $qStatus        = document.getElementById('qStatus');
-  const $questionText   = document.getElementById('questionText');
-  const $optionsContainer = document.getElementById('optionsContainer');
-  const $explanationBox = document.getElementById('explanationBox');
-  const $expTitle       = document.getElementById('expTitle');
-  const $expBody        = document.getElementById('expBody');
-  const $prevBtn        = document.getElementById('prevBtn');
-  const $nextBtn        = document.getElementById('nextBtn');
-  const $navCounter     = document.getElementById('navCounter');
-  const $submitBtn      = document.getElementById('submitBtn');
-  const $resetBtn       = document.getElementById('resetBtn');
-  const $resultsContainer = document.getElementById('resultsContainer');
-  const $finalScoreNum  = document.getElementById('finalScoreNum');
-  const $finalScoreTotal= document.getElementById('finalScoreTotal');
-  const $finalScorePct  = document.getElementById('finalScorePercent');
-  const $finalCorrect   = document.getElementById('finalCorrect');
-  const $finalWrong     = document.getElementById('finalWrong');
-  const $finalUnanswered= document.getElementById('finalUnanswered');
-  const $reviewBtn      = document.getElementById('reviewBtn');
-  const $resultsResetBtn= document.getElementById('resultsResetBtn');
-  const $quizContainer  = document.querySelector('.quiz-container');
-
-  /* ── Type labels ── */
-  const TYPE_LABELS = {
-    mcq:       'Multiple Choice',
-    truefalse: 'True / False',
-    fill:      'Fill in the Blank',
-  };
+  const $quizTitle       = document.getElementById('quizTitle');
+  const $quizSubtitle    = document.getElementById('quizSubtitle');
+  const $scoreDisplay    = document.getElementById('scoreDisplay');
+  const $answeredDisplay = document.getElementById('answeredDisplay');
+  const $totalDisplay    = document.getElementById('totalDisplay');
+  const $progressLabel   = document.getElementById('progressLabel');
+  const $progressPct     = document.getElementById('progressPercent');
+  const $progressFill    = document.getElementById('progressFill');
+  const $qNumber         = document.getElementById('qNumber');
+  const $qStatus         = document.getElementById('qStatus');
+  const $questionText    = document.getElementById('questionText');
+  const $optionsContainer  = document.getElementById('optionsContainer');
+  const $explanationBox  = document.getElementById('explanationBox');
+  const $expTitle        = document.getElementById('expTitle');
+  const $expBody         = document.getElementById('expBody');
+  const $prevBtn         = document.getElementById('prevBtn');
+  const $nextBtn         = document.getElementById('nextBtn');
+  const $navCounter      = document.getElementById('navCounter');
+  const $submitBtn       = document.getElementById('submitBtn');
+  const $resetBtn        = document.getElementById('resetBtn');
+  const $resultsContainer  = document.getElementById('resultsContainer');
+  const $finalScoreNum   = document.getElementById('finalScoreNum');
+  const $finalScoreTotal = document.getElementById('finalScoreTotal');
+  const $finalScorePct   = document.getElementById('finalScorePercent');
+  const $finalCorrect    = document.getElementById('finalCorrect');
+  const $finalWrong      = document.getElementById('finalWrong');
+  const $finalUnanswered = document.getElementById('finalUnanswered');
+  const $reviewBtn       = document.getElementById('reviewBtn');
+  const $resultsResetBtn = document.getElementById('resultsResetBtn');
+  const $quizContainer   = document.querySelector('.quiz-container');
 
   /* ════════════════════════════════════════
      INIT
@@ -148,12 +146,10 @@ if (PAGE === 'quiz') {
     questions   = [...(quizData.questions ?? [])];
     userAnswers = new Array(questions.length).fill(null);
 
-    /* Header */
     if ($quizTitle)    $quizTitle.textContent    = quizData.title ?? 'Quiz';
     if ($quizSubtitle) $quizSubtitle.textContent = `${questions.length} questions`;
     if ($totalDisplay) $totalDisplay.textContent = questions.length;
 
-    /* Wire buttons */
     $prevBtn?.addEventListener('click', () => goTo(current - 1));
     $nextBtn?.addEventListener('click', () => goTo(current + 1));
     $resetBtn?.addEventListener('click', resetQuiz);
@@ -161,7 +157,6 @@ if (PAGE === 'quiz') {
     $resultsResetBtn?.addEventListener('click', resetQuiz);
     resetSubmitBtn();
 
-    /* Build jump panel */
     buildJumpPanel();
     buildKbdHint();
     setupKeyboard();
@@ -181,8 +176,7 @@ if (PAGE === 'quiz') {
   function countCorrect() {
     return userAnswers.reduce((acc, ans, i) => {
       if (ans === null) return acc;
-      const q = questions[i];
-      return acc + (checkAnswer(q, ans) ? 1 : 0);
+      return acc + (checkAnswer(questions[i], ans) ? 1 : 0);
     }, 0);
   }
 
@@ -236,7 +230,6 @@ if (PAGE === 'quiz') {
   function renderJumpPanel(panel) {
     if (!panel) panel = document.getElementById('jumpPanel');
     if (!panel) return;
-
     panel.innerHTML = '';
     for (let i = 0; i < questions.length; i++) {
       const dot = document.createElement('button');
@@ -292,16 +285,14 @@ if (PAGE === 'quiz') {
   ════════════════════════════════════════ */
 
   function renderQuestion() {
-    const q       = questions[current];
-    const ans     = userAnswers[current];
+    const q          = questions[current];
+    const ans        = userAnswers[current];
     const isAnswered = ans !== null;
     const isCorrect  = isAnswered && checkAnswer(q, ans);
     const isCompleted = quizCompleted || isReviewMode;
 
-    /* Q number tag */
     if ($qNumber) $qNumber.textContent = `Q${q.id ?? current + 1}`;
 
-    /* Status badge */
     if ($qStatus) {
       if (isCompleted) {
         if (!isAnswered)    { $qStatus.textContent = '⚠️ Unanswered'; $qStatus.className = 'q-status'; }
@@ -313,10 +304,8 @@ if (PAGE === 'quiz') {
       }
     }
 
-    /* Question text */
     if ($questionText) $questionText.textContent = q.text;
 
-    /* Answer area */
     if ($optionsContainer) {
       $optionsContainer.innerHTML = '';
       switch (q.type) {
@@ -329,13 +318,10 @@ if (PAGE === 'quiz') {
       }
     }
 
-    /* Explanation (only after quiz completed) */
     renderExplanation(q, ans, isAnswered, isCorrect, isCompleted);
-
     updateProgress();
     updateHeroStats();
     renderJumpPanel();
-
     $quizContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -345,20 +331,16 @@ if (PAGE === 'quiz') {
 
   function renderMCQ(q, savedAns, isCompleted) {
     const letters = ['A', 'B', 'C', 'D'];
-
     q.options.forEach((opt, i) => {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
-
       const isSelected = savedAns === opt;
 
-      /* Letter badge */
       const letter = document.createElement('span');
       letter.className   = 'letter';
       letter.textContent = letters[i];
       btn.appendChild(letter);
 
-      /* Text */
       const text = document.createElement('span');
       text.textContent = opt;
       btn.appendChild(text);
@@ -384,7 +366,6 @@ if (PAGE === 'quiz') {
           renderQuestion();
         });
       }
-
       $optionsContainer.appendChild(btn);
     });
   }
@@ -397,7 +378,6 @@ if (PAGE === 'quiz') {
     [true, false].forEach(val => {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
-
       const isSelected = savedAns === val;
 
       const letter = document.createElement('span');
@@ -430,7 +410,6 @@ if (PAGE === 'quiz') {
           renderQuestion();
         });
       }
-
       $optionsContainer.appendChild(btn);
     });
   }
@@ -444,15 +423,13 @@ if (PAGE === 'quiz') {
     wrap.style.cssText = 'display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;';
 
     const input = document.createElement('input');
-    input.type        = 'text';
-    input.className   = 'fill-input';
-    input.placeholder = 'Type your answer…';
-    input.style.flex  = '1';
+    input.type         = 'text';
+    input.className    = 'fill-input';
+    input.placeholder  = 'Type your answer…';
+    input.style.flex   = '1';
     input.autocomplete = 'off';
 
-    if (savedAns !== null) {
-      input.value = savedAns;
-    }
+    if (savedAns !== null) input.value = savedAns;
 
     if (isCompleted) {
       input.readOnly = true;
@@ -469,8 +446,8 @@ if (PAGE === 'quiz') {
       }
     } else {
       const checkBtn = document.createElement('button');
-      checkBtn.className   = 'nav-btn primary';
-      checkBtn.textContent = 'Save Answer';
+      checkBtn.className        = 'nav-btn primary';
+      checkBtn.textContent      = 'Save Answer';
       checkBtn.style.whiteSpace = 'nowrap';
 
       const save = () => {
@@ -504,50 +481,41 @@ if (PAGE === 'quiz') {
 
     const rows = q.pairs.map(pair => {
 
-      /* Row wrapper */
       const row = document.createElement('div');
       row.style.cssText = 'display:grid; grid-template-columns:120px 1fr 32px; align-items:center; gap:10px;';
 
-      /* ── Term label ── */
+      /* Term label */
       const label = document.createElement('div');
       label.style.cssText = `
-        padding: 10px 14px;
-        background: rgba(129,140,248,0.1);
-        border: 1.5px solid rgba(129,140,248,0.3);
-        border-radius: var(--radius-md);
-        font-size: .85rem; font-weight: 700;
-        color: var(--accent);
-        text-align: center;
+        padding:10px 14px;
+        background:rgba(129,140,248,0.1);
+        border:1.5px solid rgba(129,140,248,0.3);
+        border-radius:var(--radius-md);
+        font-size:.85rem; font-weight:700;
+        color:var(--accent);
+        text-align:center;
       `;
       label.textContent = pair.term;
 
-      /* ── Dropdown ── */
+      /* Dropdown – fixed colors so text is always visible */
       const select = document.createElement('select');
-      select.style.cssText = `
-        width: 100%;
-        padding: 10px 14px;
-        background: rgba(255,255,255,0.05);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius-md);
-        color: var(--text-primary);
-        font-family: inherit;
-        font-size: .88rem;
-        outline: none;
-        cursor: pointer;
-        appearance: auto;
-      `;
+      select.className = 'match-select';
 
       /* Placeholder */
       const ph = document.createElement('option');
-      ph.value = ''; ph.textContent = '— Select a definition —';
-      ph.disabled = true; ph.selected = true;
+      ph.value       = '';
+      ph.textContent = '— Select a definition —';
+      ph.disabled    = true;
+      ph.selected    = true;
       select.appendChild(ph);
 
       /* Options */
       defs.forEach(def => {
         const opt = document.createElement('option');
-        opt.value = def;
+        opt.value       = def;
         opt.textContent = def;
+        /* Force explicit colors so OS doesn't override */
+        opt.style.cssText = 'background:#1e293b; color:#f1f5f9;';
         select.appendChild(opt);
       });
 
@@ -556,19 +524,18 @@ if (PAGE === 'quiz') {
         select.value = savedAns[pair.term];
       }
 
-      /* ── Icon ── */
+      /* Icon */
       const icon = document.createElement('span');
       icon.style.cssText = 'font-size:1.2rem; text-align:center;';
 
-      /* ── Completed state ── */
+      /* Completed state */
       if (isCompleted) {
         select.disabled = true;
         const chosen  = savedAns ? savedAns[pair.term] : null;
         const isRowOk = chosen === pair.definition;
         icon.textContent = isRowOk ? '✅' : '❌';
-        select.style.borderColor = isRowOk ? '#22c55e' : '#ef4444';
-        select.style.background  = isRowOk ? 'rgba(34,197,94,0.08)' : 'rgba(239,68,68,0.08)';
-        label.style.borderColor  = isRowOk ? '#22c55e' : '#ef4444';
+        select.classList.add(isRowOk ? 'correct' : 'wrong');
+        label.style.borderColor = isRowOk ? '#22c55e' : '#ef4444';
       }
 
       row.appendChild(label);
@@ -579,7 +546,7 @@ if (PAGE === 'quiz') {
       return { pair, select, icon, label };
     });
 
-    /* ── Correct answers hint after completion ── */
+    /* Correct answers hint */
     if (isCompleted && savedAns) {
       const allOk = q.pairs.every(p => savedAns[p.term] === p.definition);
       if (!allOk) {
@@ -587,27 +554,25 @@ if (PAGE === 'quiz') {
         hint.style.cssText = 'margin-top:8px; font-size:.82rem; color:var(--text-muted); line-height:1.9;';
         hint.innerHTML = '<strong style="color:var(--text-primary)">Correct answers:</strong><br>' +
           q.pairs.map(p =>
-            `<span style="color:var(--accent); font-weight:700;">${p.term}</span> → ${p.definition}`
+            `<span style="color:var(--accent);font-weight:700;">${p.term}</span> → ${p.definition}`
           ).join('<br>');
         wrap.appendChild(hint);
       }
     }
 
-    /* ── Save button (before completion) ── */
+    /* Save button */
     if (!isCompleted) {
       const checkBtn = document.createElement('button');
-      checkBtn.className   = 'nav-btn primary';
-      checkBtn.textContent = 'Save Answers';
-      checkBtn.style.cssText = 'align-self:flex-start; margin-top:4px;';
+      checkBtn.className        = 'nav-btn primary';
+      checkBtn.textContent      = 'Save Answers';
+      checkBtn.style.cssText    = 'align-self:flex-start; margin-top:4px;';
 
       checkBtn.addEventListener('click', () => {
         const allSelected = rows.every(r => r.select.value !== '');
         if (!allSelected) { showToast('Please select a definition for every term.'); return; }
-
         const userAnswer = {};
         rows.forEach(({ pair, select }) => { userAnswer[pair.term] = select.value; });
         userAnswers[current] = userAnswer;
-
         renderQuestion();
       });
 
@@ -617,7 +582,7 @@ if (PAGE === 'quiz') {
     $optionsContainer.appendChild(wrap);
   }
 
-  /** Fisher-Yates shuffle */
+  /* Fisher-Yates shuffle */
   function shuffle(arr) {
     const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
@@ -628,7 +593,7 @@ if (PAGE === 'quiz') {
   }
 
   /* ════════════════════════════════════════
-     EXPLANATION (shown only after submit)
+     EXPLANATION
   ════════════════════════════════════════ */
 
   function renderExplanation(q, ans, isAnswered, isCorrect, isCompleted) {
@@ -711,29 +676,27 @@ if (PAGE === 'quiz') {
     let correct = 0, wrong = 0, unanswered = 0;
     for (let i = 0; i < questions.length; i++) {
       const ans = userAnswers[i];
-      if (ans === null)                            unanswered++;
-      else if (checkAnswer(questions[i], ans))     correct++;
-      else                                         wrong++;
+      if (ans === null)                        unanswered++;
+      else if (checkAnswer(questions[i], ans)) correct++;
+      else                                     wrong++;
     }
 
     quizCompleted = true;
     const pct = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0;
 
-    if ($finalScoreNum)  $finalScoreNum.textContent  = correct;
+    if ($finalScoreNum)   $finalScoreNum.textContent   = correct;
     if ($finalScoreTotal) $finalScoreTotal.textContent = questions.length;
-    if ($finalScorePct)  $finalScorePct.textContent  = pct + '%';
-    if ($finalCorrect)   $finalCorrect.textContent   = correct;
-    if ($finalWrong)     $finalWrong.textContent     = wrong;
+    if ($finalScorePct)   $finalScorePct.textContent   = pct + '%';
+    if ($finalCorrect)    $finalCorrect.textContent    = correct;
+    if ($finalWrong)      $finalWrong.textContent      = wrong;
     if ($finalUnanswered) $finalUnanswered.textContent = unanswered;
 
-    /* Hide quiz, show results */
     if ($quizContainer) $quizContainer.style.display = 'none';
     if ($resultsContainer) {
       $resultsContainer.className = 'results-container visible';
       $resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
-    /* Hide jump panel & kbd hint */
     const panel = document.getElementById('jumpPanel');
     const hint  = document.getElementById('kbdHint');
     if (panel) panel.style.display = 'none';
